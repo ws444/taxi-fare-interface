@@ -5,6 +5,8 @@ if (window.location.href.includes('https://taxifare.lewagon.com')) {
   taxiFareApiUrl = 'https://taxifare.lewagon.ai/predict';
 }
 
+//mapboxgl.accessToken = 'pk.eyJ1Ijoiam9oYW5udGFkIiwiYSI6ImNsMDI4cjJpZTBranAzZG9memprcDg2MnAifQ.i152rrwSGmG3c4zwm-7bpg';
+
 mapboxgl.accessToken = 'pk.eyJ1Ijoia3Jva3JvYiIsImEiOiJja2YzcmcyNDkwNXVpMnRtZGwxb2MzNWtvIn0.69leM_6Roh26Ju7Lqb2pwQ';
 
 const displayMap = (start, stop) => {
@@ -152,6 +154,8 @@ const initGeocoder = (element, placeholder) => {
   return geocoder;
 }
 
+
+
 const pickupAutocomplete = () => {
   const geocoder = initGeocoder('#pickup', 'Pickup');
   geocoder.on("result", event => {
@@ -160,6 +164,7 @@ const pickupAutocomplete = () => {
     document.querySelector('#pickup_longitude').value = coordinates[0];
   });
 };
+
 
 const dropoffAutocomplete = () => {
   const geocoder = initGeocoder('#dropoff', 'Drop-off');
@@ -172,6 +177,7 @@ const dropoffAutocomplete = () => {
   });
 };
 
+
 const initFlatpickr = () => {
   flatpickr("#pickup_datetime", {
     enableTime: true,
@@ -179,6 +185,8 @@ const initFlatpickr = () => {
     defaultDate: Date.now()
   });
 };
+
+
 
 const predict = () => {
   const form = document.querySelector('form');
@@ -198,6 +206,7 @@ const predict = () => {
         query.push(`${param}=${data[param]}`)
       })
       const querystring = query.join('&')
+      const taxiFareApiUrl = 'https://taxifare.lewagon.ai/predict';
       const url = `${taxiFareApiUrl}?${querystring}`
       fetch(url, {
         method: 'GET',
@@ -219,6 +228,7 @@ const predict = () => {
     });
   }
 };
+
 
 displayMap();
 pickupAutocomplete();
